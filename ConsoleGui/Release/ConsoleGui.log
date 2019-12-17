@@ -1,0 +1,20 @@
+﻿  ConsoleGui.cpp
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(51,4): warning C4091: 'static ': ignored on left of 'ConGui::Style::<unnamed-enum-BoxStyle_Default>' when no variable is declared
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(61,4): warning C4091: 'static ': ignored on left of 'ConGui::Style::<unnamed-enum-CheckBoxStyle_ShortBox>' when no variable is declared
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(146,14): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(177,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(190,21): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(325,27): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(353,27): warning C4018: '<=': signed/unsigned mismatch
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(533,6): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(563,12): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(564,20): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(588,6): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(598,25): warning C4018: '<': signed/unsigned mismatch
+C:\Users\KleskBY\source\repos\ConsoleGui\ConsoleGui\ConGui.h(632,6): warning C4267: 'argument': conversion from 'size_t' to 'short', possible loss of data
+  Generating code
+  2 of 204 functions ( 1.0%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  ConsoleGui.vcxproj -> C:\Users\KleskBY\source\repos\ConsoleGui\Release\ConsoleGui.exe
