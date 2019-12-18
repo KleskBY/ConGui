@@ -625,10 +625,6 @@ namespace ConGui
 
 		Text(x, y, text, Style::InputText);
 		Text(x, y+1, (*variable).c_str(), Style::InputTextText);
-		//for (int i = x+ (*variable).size(); i < x + w; i++)
-		//{
-		//	Text(i, y+1, " ", Style::InputTextText);
-		//}
 		if (InvisableButton(x, y + 1, x + (*variable).size(), y + 2))
 		{
 			LastX = x;

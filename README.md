@@ -9,4 +9,4 @@
 - Input text(ugly)<br>
 
 
-![alt text](https://github.com/KleskBY/ConsoleGui/blob/master/img.jpg?raw=true)<br>
+![alt text](https://github.com/KleskBY/ConGui/blob/master/img.jpg?raw=true)<br>

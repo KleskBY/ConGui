@@ -1,6 +1,4 @@
 ﻿#include "ConGui.h"
-//std::remove("log.log");
-//freopen("log.log", "w", stdout);
 
 bool mybool = false;
 int myint = 40;
@@ -21,9 +19,6 @@ int main()
 		ConGui::Frame();
 		ConGui::InputHandle();
 
-		//ConGui::Text(ConGui::CursorX, ConGui::CursorY, "x");
-		//ConGui::screen[1 * ConGui::ConsoleWidth + 1] = 0x25A0;
-
 		ConGui::Text(0, 0, ("X=" + std::to_string(ConGui::CursorX) + " Y=" + std::to_string(ConGui::CursorY) + " S=" + std::to_string(ConGui::SelectedBlock) + " X=" + std::to_string(ConGui::LastX)).c_str(), 10);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
 		if (ConGui::Button("BUTTON 1", 2, 2, 20, 4)) Beep(100, 100);
@@ -32,11 +27,11 @@ int main()
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Corners;
 		if (ConGui::Button("BUTTON 3", 2, 8, 20, 10)) Beep(300, 300);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Corners2;
-		if (ConGui::Button("BUTTON 4", 22, 2, 44, 4)) Beep(400, 100);
+		if (ConGui::Button("BUTTON 4", 22, 2, 44, 4)) Beep(400, 400);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
-		if (ConGui::Button("BUTTON 5", 22, 5, 44, 7)) Beep(500, 100);
+		if (ConGui::Button("BUTTON 5", 22, 5, 44, 7)) Beep(500, 500);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo2;
-		if (ConGui::Button("BUTTON 6", 22, 8, 44, 10)) Beep(500, 100);
+		if (ConGui::Button("BUTTON 6", 22, 8, 44, 10)) Beep(500, 600);
 
 		ConGui::Style::CheckBoxStyle = ConGui::Style::CheckBoxStyle_Round;
 		ConGui::CheckBox("Checkbox1", 2, 12, &mybool); 
