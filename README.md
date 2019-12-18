@@ -3,16 +3,10 @@
 <br>
 
 <b>Features:</b><br>
-- Simple arrows menu (INSERT, arrows)<br>
-- Aimbot (ALT key,buggy as fuck)<br>
-- ESP (buggy as fuck)<br>
-- Unhook (buggy as fuck)<br>
+- Button: 6 styles, theme support<br>
+- CheckBox: 4 styles<br>
+- Sliders: float/int; CTRL click support<br>
+- Input text(ugly)<br>
 
-<b>Credits:</b><br>
-- KleskBY (Author, reverse, coding)<br>
-- ocornut (imgui)<br>
-- TsudaKageyu (minhook)<br>
-- TheFlood (memory class)<br>
-- RangeMachine (imgui render)<br>
 
 ![alt text](https://github.com/KleskBY/ConsoleGui/blob/master/img.jpg?raw=true)<br>
