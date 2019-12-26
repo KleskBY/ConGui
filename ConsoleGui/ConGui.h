@@ -94,9 +94,9 @@ namespace ConGui
 		cfi.dwFontSize.Y = 20;                  // Height
 		cfi.FontFamily = FF_DONTCARE;
 		cfi.FontWeight = FW_BOLD;
-		wcscpy_s(cfi.FaceName, sizeof(cfi.FaceName), L"Consolas");
+		wcscpy_s(cfi.FaceName, LF_FACESIZE, L"Consolas");
 		SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
-		std::cout << "1";
+		//std::cout << "1";
 	}
 	static void PrepareFrame()
 	{
@@ -419,6 +419,82 @@ namespace ConGui
 		Text(centerX, centerY, text);
 		return pressed;
 	}
+
+	static const char* Keys[] =
+	{
+		"none", "MOUSE 1", "MOUSE 2", "CANCEL", "MOUSE 3", "MOUSE 4", "MOUSE 5", "None", "BACKSPACE",
+		"TAB", "None", "None", "CLEAR", "ENTER", "None",  "None",  "SHIFT",  "CTRL",  "ALT",  "PAUSE",
+		 "CAPS LOCK",  "KANA",  "HANGUEL",  "HANGUL",  "JUNIA",  "FINAL",  "HANJA",
+			"ESC",  "CONVERT",  "NONCONVERT",  "ACCEPT",  "MODE",  "SPACE",  "PAGE UP",  "PAGE DOWN",
+		   "END", "HOME", "LEFT ARROW", "UP ARROW", "RIGHT ARROW", "DOWN ARROW", "SELECT", "PRINT", "EXECUTE",
+		   "PRINT SCREEN", "INSERT", "DELETE", "HELP", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
+		   "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "A", "B", "C", "D", "E", "F", "G", "H",
+		   "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+		   "WIN", "WIN", "APPS", "NONE", "SLEEP", "NUMPAD 0", "NUMPAD 1", "NUMPAD 2", "NUMPAD 3", "NUMPAD 4",
+		   "NUMPAD 5", "NUMPAD 6", "NUMPAD 7", "NUMPAD 8", "NUMPAD 9", "MULTIPLY", "ADD", "SEPARATOR", "SUBTRACT",
+		   "DECIMIAL", "DIVIDE", "F1", "F2", "F3", "F4", "F5", "F6", "F7", "F8", "F9", "F10", "F11", "F12",
+		   "F13", "F14", "F15", "F16", "F17", "F18", "F19", "F20", "F21", "F22", "F23", "F24",
+		   "NUM LOCK", "SCROLL LOCK", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE",
+		   "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE",
+		   "LSHIFT", "RSHIFT", "LCTRL", "RCTRL", "LALT", "RALT", "BACK", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", 
+		   "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE", "NONE",
+		   "';:' key", "'+' key", "',' key", "'-' key","'.' key","'/?' key","'`' key",
+	};
+
+	static void KeySelector(const char* text, short x, short y, short x2, short y2, int* variable)
+	{
+		bool pressed = false;
+		WORD NewColor = Style::Button;
+		//Controls
+		for (int winx = 0; winx < ConsoleWidth; winx++)
+		{
+			for (int winy = 0; winy < ConsoleHeight; winy++)
+			{
+				if (winx >= x && winx <= x2 && winy >= y && winy <= y2)
+				{
+					if (SelectedBlock == (winy * ConsoleWidth + winx))
+					{
+						//SetForegroundWindow(GetDesktopWindow());
+						LastX = x;
+						LastY = y;
+						pressed = true;
+						NewColor = Style::ButtonActive;
+					}
+					else if (FocusedBlock == (winy * ConsoleWidth + winx))
+					{
+						NewColor = Style::ButtonHovered;
+					}
+				}
+			}
+		}
+		Box(x, y, x2, y2, NewColor, Style::ButtonFill);
+
+		if (LastX == x && LastY == y)
+		{
+			for (int i = 0; i < sizeof(Keys); i++)
+			{
+				if (GetAsyncKeyState(i))
+				{
+					pressed = false;
+					*variable = i;
+					break;
+				}
+			}
+		}
+
+		if (*variable == 0)
+		{
+			int centerX = ((x2 + x) / 2) - (strlen(text) / 2);
+			int centerY = (y2 + y) / 2;
+			Text(centerX, centerY, text);
+		}
+		else
+		{
+			int centerX = ((x2 + x) / 2) - (strlen(Keys[*variable]) / 2);
+			int centerY = (y2 + y) / 2;
+			Text(centerX, centerY, Keys[*variable]);
+		}
+	}
 	static void CheckBox(const char* text, short x, short y, bool* variable)
 	{
 		int SavedBoxStyle = Style::BoxStyle;
@@ -548,8 +624,16 @@ namespace ConGui
 	{
 		if (Link(" -", x - 1, y))
 		{
-			*variable = *variable - stepsize;
-			if (*variable < min) *variable = min;
+			if (GetAsyncKeyState(VK_CONTROL))
+			{
+				*variable = *variable - stepsize * 4;
+				if (*variable < min) *variable = min;
+			}
+			else
+			{
+				*variable = *variable - stepsize;
+				if (*variable < min) *variable = min;
+			}
 		}
 
 		WORD Backup1 = Style::Link;
@@ -587,8 +671,16 @@ namespace ConGui
 		Text(x + w, y, variableText.c_str());
 		if (Link("+ ", x + w + variableText.size(), y))
 		{
-			*variable = *variable + stepsize;
-			if (*variable > max) *variable = max;
+			if (GetAsyncKeyState(VK_CONTROL))
+			{
+				*variable = *variable + stepsize * 4;
+				if (*variable > max) *variable = max;
+			}
+			else
+			{
+				*variable = *variable + stepsize;
+				if (*variable > max) *variable = max;
+			}
 		}
 	}
 	static void InputText(const char* text, short x, short y, short w, std::string* variable)
@@ -625,6 +717,10 @@ namespace ConGui
 
 		Text(x, y, text, Style::InputText);
 		Text(x, y+1, (*variable).c_str(), Style::InputTextText);
+		//for (int i = x+ (*variable).size(); i < x + w; i++)
+		//{
+		//	Text(i, y+1, " ", Style::InputTextText);
+		//}
 		if (InvisableButton(x, y + 1, x + (*variable).size(), y + 2))
 		{
 			LastX = x;

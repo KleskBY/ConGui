@@ -3,6 +3,7 @@
 bool mybool = false;
 int myint = 40;
 float myfloat = 100.f;
+int mykey = 0;
 std::string mystring = "INPUTTEXT";
 int main()
 {
@@ -19,6 +20,9 @@ int main()
 		ConGui::Frame();
 		ConGui::InputHandle();
 
+		//ConGui::Text(ConGui::CursorX, ConGui::CursorY, "x");
+		//ConGui::screen[1 * ConGui::ConsoleWidth + 1] = 0x25A0;
+
 		ConGui::Text(0, 0, ("X=" + std::to_string(ConGui::CursorX) + " Y=" + std::to_string(ConGui::CursorY) + " S=" + std::to_string(ConGui::SelectedBlock) + " X=" + std::to_string(ConGui::LastX)).c_str(), 10);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Default;
 		if (ConGui::Button("BUTTON 1", 2, 2, 20, 4)) Beep(100, 100);
@@ -27,11 +31,11 @@ int main()
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Corners;
 		if (ConGui::Button("BUTTON 3", 2, 8, 20, 10)) Beep(300, 300);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Corners2;
-		if (ConGui::Button("BUTTON 4", 22, 2, 44, 4)) Beep(400, 400);
+		if (ConGui::Button("BUTTON 4", 22, 2, 44, 4)) Beep(400, 100);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo;
-		if (ConGui::Button("BUTTON 5", 22, 5, 44, 7)) Beep(500, 500);
+		if (ConGui::Button("BUTTON 5", 22, 5, 44, 7)) Beep(500, 100);
 		ConGui::Style::BoxStyle = ConGui::Style::BoxStyle_Combo2;
-		if (ConGui::Button("BUTTON 6", 22, 8, 44, 10)) Beep(500, 600);
+		if (ConGui::Button("BUTTON 6", 22, 8, 44, 10)) Beep(500, 100);
 
 		ConGui::Style::CheckBoxStyle = ConGui::Style::CheckBoxStyle_Round;
 		ConGui::CheckBox("Checkbox1", 2, 12, &mybool); 
@@ -45,7 +49,7 @@ int main()
 		ConGui::SliderInt(2, 14,20, &myint);
 		ConGui::SliderFloat(2, 16, 20, &myfloat,0,200,5.5f);
 		ConGui::InputText("INPUT TEXT:", 46, 2, 17, &mystring);
-
+		ConGui::KeySelector("INPUT KEY", 40, 14, 60, 16, &mykey);
 		ConGui::Render();
 	}
 }
