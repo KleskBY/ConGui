@@ -6,9 +6,10 @@
 using namespace std;
 
 /*
-	ConGui v0.1
-	Credits: KleskBY
-	Date: 12/12/2019
+	ConGui v0.2
+	Author: KleskBY
+	Date: 6/12/2020
+	Release date: 12/12/2019
 */
 
 namespace ConGui
@@ -32,6 +33,7 @@ namespace ConGui
 	static int LastX = 0;
 	static int LastY = 0;
 
+	static DWORD dwTick = 0;
 	static DWORD dwBytesWritten = 0;
 	static wchar_t* screen;
 #pragma endregion
@@ -79,7 +81,7 @@ namespace ConGui
 		static WORD SliderActive = 204;
 
 		static WORD InputText = 240;
-		static WORD InputTextText = 128;
+		static WORD InputTextText = 0;
 	}
 
 #pragma endregion
@@ -96,7 +98,6 @@ namespace ConGui
 		cfi.FontWeight = FW_BOLD;
 		wcscpy_s(cfi.FaceName, LF_FACESIZE, L"Consolas");
 		SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
-		//std::cout << "1";
 	}
 	static void PrepareFrame()
 	{
@@ -369,7 +370,7 @@ namespace ConGui
 		Text(x, y, text, NewColor);
 		return pressed;
 	}
-	static bool InvisableButton(short x, short y, short x2, short y2)
+	static bool InvisibleButton(short x, short y, short x2, short y2)
 	{
 		bool pressed = false;
 		for (int winx = 0; winx < ConsoleWidth; winx++)
@@ -477,6 +478,7 @@ namespace ConGui
 				{
 					pressed = false;
 					*variable = i;
+					LastX = 9999;
 					break;
 				}
 			}
@@ -689,23 +691,170 @@ namespace ConGui
 		{
 			if (variable->size() < w)
 			{
-				for (int i = 48; i < 57; i++)
+				if (GetAsyncKeyState(VK_SHIFT))
 				{
-					if (GetAsyncKeyState(i))
+					for (int i = 65; i < 90; i++)
+					{
+						if (GetAsyncKeyState(i))
+						{
+							Sleep(100);
+							*variable = *variable + (char)i;
+							while (GetAsyncKeyState(i)) Sleep(10);
+						}
+					}
+					if (GetAsyncKeyState(VK_OEM_PLUS))
 					{
 						Sleep(100);
-						*variable = *variable + (char)i;
-						while (GetAsyncKeyState(i)) Sleep(10);
+						*variable = *variable + "=";
+						while (GetAsyncKeyState(VK_OEM_PLUS)) Sleep(10);
+					}
+					if (GetAsyncKeyState(48))
+					{
+						Sleep(100);
+						*variable = *variable + ")";
+						while (GetAsyncKeyState(48)) Sleep(10);
+					}
+					if (GetAsyncKeyState(49))
+					{
+						Sleep(100);
+						*variable = *variable + "!";
+						while (GetAsyncKeyState(49)) Sleep(10);
+					}
+					if (GetAsyncKeyState(50))
+					{
+						Sleep(100);
+						*variable = *variable + "@";
+						while (GetAsyncKeyState(50)) Sleep(10);
+					}
+					if (GetAsyncKeyState(51))
+					{
+						Sleep(100);
+						*variable = *variable + "#";
+						while (GetAsyncKeyState(51)) Sleep(10);
+					}
+					if (GetAsyncKeyState(52))
+					{
+						Sleep(100);
+						*variable = *variable + "$";
+						while (GetAsyncKeyState(52)) Sleep(10);
+					}
+					if (GetAsyncKeyState(53))
+					{
+						Sleep(100);
+						*variable = *variable + "%";
+						while (GetAsyncKeyState(53)) Sleep(10);
+					}
+					if (GetAsyncKeyState(54))
+					{
+						Sleep(100);
+						*variable = *variable + "^";
+						while (GetAsyncKeyState(54)) Sleep(10);
+					}
+					if (GetAsyncKeyState(55))
+					{
+						Sleep(100);
+						*variable = *variable + "&";
+						while (GetAsyncKeyState(55)) Sleep(10);
+					}
+					if (GetAsyncKeyState(56))
+					{
+						Sleep(100);
+						*variable = *variable + "*";
+						while (GetAsyncKeyState(56)) Sleep(10);
+					}
+					if (GetAsyncKeyState(57))
+					{
+						Sleep(100);
+						*variable = *variable + "(";
+						while (GetAsyncKeyState(57)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_PLUS))
+					{
+						Sleep(100);
+						*variable = *variable + "+";
+						while (GetAsyncKeyState(VK_OEM_PLUS)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_MINUS))
+					{
+						Sleep(100);
+						*variable = *variable + "_";
+						while (GetAsyncKeyState(VK_OEM_MINUS)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_COMMA))
+					{
+						Sleep(100);
+						*variable = *variable + "<";
+						while (GetAsyncKeyState(VK_OEM_COMMA)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_PERIOD))
+					{
+						Sleep(100);
+						*variable = *variable + ">";
+						while (GetAsyncKeyState(VK_OEM_PERIOD)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_2))
+					{
+						Sleep(100);
+						*variable = *variable + "?";
+						while (GetAsyncKeyState(VK_OEM_2)) Sleep(10);
 					}
 				}
-				for (int i = 65; i < 90; i++)
+				else
 				{
-					if (GetAsyncKeyState(i))
+					for (int i = 48; i < 57; i++)
+					{
+						if (GetAsyncKeyState(i))
+						{
+							Sleep(100);
+							*variable = *variable + (char)tolower(i);
+							while (GetAsyncKeyState(i)) Sleep(10);
+						}
+					}
+					for (int i = 65; i < 90; i++)
+					{
+						if (GetAsyncKeyState(i))
+						{
+							Sleep(100);
+							*variable = *variable + (char)tolower(i);
+							while (GetAsyncKeyState(i)) Sleep(10);
+						}
+					}
+					if (GetAsyncKeyState(VK_OEM_PLUS))
 					{
 						Sleep(100);
-						*variable = *variable + (char)i;
-						while (GetAsyncKeyState(i)) Sleep(10);
+						*variable = *variable + "+";
+						while (GetAsyncKeyState(VK_OEM_PLUS)) Sleep(10);
 					}
+					if (GetAsyncKeyState(VK_OEM_MINUS))
+					{
+						Sleep(100);
+						*variable = *variable + "-";
+						while (GetAsyncKeyState(VK_OEM_MINUS)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_COMMA))
+					{
+						Sleep(100);
+						*variable = *variable + ",";
+						while (GetAsyncKeyState(VK_OEM_COMMA)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_PERIOD))
+					{
+						Sleep(100);
+						*variable = *variable + ".";
+						while (GetAsyncKeyState(VK_OEM_PERIOD)) Sleep(10);
+					}
+					if (GetAsyncKeyState(VK_OEM_2))
+					{
+						Sleep(100);
+						*variable = *variable + "/";
+						while (GetAsyncKeyState(VK_OEM_2)) Sleep(10);
+					}
+				}
+				if (GetAsyncKeyState(VK_SPACE))
+				{
+					Sleep(100);
+					*variable = *variable + " ";
+					while (GetAsyncKeyState(VK_SPACE)) Sleep(10);
 				}
 			}
 			if (GetAsyncKeyState(VK_BACK))
@@ -713,15 +862,18 @@ namespace ConGui
 				Sleep(75);
 				*variable = variable->substr(0, variable->size() - 1);
 			}
+			Text(x, y, text, Style::InputText);
+			if (dwTick + 500 < GetTickCount())dwTick = GetTickCount();
+			if (dwTick + 250 < GetTickCount()) Text(x, y + 1, (*variable + "_").c_str(), Style::InputTextText);
+			else Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
+		}
+		else
+		{
+			Text(x, y, text, Style::InputText);
+			Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
 		}
 
-		Text(x, y, text, Style::InputText);
-		Text(x, y+1, (*variable).c_str(), Style::InputTextText);
-		//for (int i = x+ (*variable).size(); i < x + w; i++)
-		//{
-		//	Text(i, y+1, " ", Style::InputTextText);
-		//}
-		if (InvisableButton(x, y + 1, x + (*variable).size(), y + 2))
+		if (InvisibleButton(x, y, x + (*variable).size(), y + 2))
 		{
 			LastX = x;
 			LastY = y;
