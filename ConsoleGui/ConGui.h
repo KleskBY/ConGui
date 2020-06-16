@@ -407,10 +407,7 @@ namespace ConGui
 						pressed = true;
 						NewColor = Style::ButtonActive;
 					}
-					else if (FocusedBlock == (winy * ConsoleWidth + winx))
-					{
-						NewColor = Style::ButtonHovered;
-					}
+					else if (FocusedBlock == (winy * ConsoleWidth + winx)) NewColor = Style::ButtonHovered;
 				}
 			}
 		}
@@ -685,7 +682,7 @@ namespace ConGui
 			}
 		}
 	}
-	static void InputText(const char* text, short x, short y, short w, std::string* variable)
+	static void InputText(const char* text, short x, short y, short w, std::string* variable, bool encrypted = false)
 	{
 		if (LastX == x && LastY == y && GetForegroundWindow() == WindowHWND)
 		{
@@ -697,104 +694,87 @@ namespace ConGui
 					{
 						if (GetAsyncKeyState(i))
 						{
-							Sleep(100);
 							*variable = *variable + (char)i;
 							while (GetAsyncKeyState(i)) Sleep(10);
 						}
 					}
 					if (GetAsyncKeyState(VK_OEM_PLUS))
 					{
-						Sleep(100);
 						*variable = *variable + "=";
 						while (GetAsyncKeyState(VK_OEM_PLUS)) Sleep(10);
 					}
 					if (GetAsyncKeyState(48))
 					{
-						Sleep(100);
 						*variable = *variable + ")";
 						while (GetAsyncKeyState(48)) Sleep(10);
 					}
 					if (GetAsyncKeyState(49))
 					{
-						Sleep(100);
 						*variable = *variable + "!";
 						while (GetAsyncKeyState(49)) Sleep(10);
 					}
 					if (GetAsyncKeyState(50))
 					{
-						Sleep(100);
 						*variable = *variable + "@";
 						while (GetAsyncKeyState(50)) Sleep(10);
 					}
 					if (GetAsyncKeyState(51))
 					{
-						Sleep(100);
 						*variable = *variable + "#";
 						while (GetAsyncKeyState(51)) Sleep(10);
 					}
 					if (GetAsyncKeyState(52))
 					{
-						Sleep(100);
 						*variable = *variable + "$";
 						while (GetAsyncKeyState(52)) Sleep(10);
 					}
 					if (GetAsyncKeyState(53))
 					{
-						Sleep(100);
 						*variable = *variable + "%";
 						while (GetAsyncKeyState(53)) Sleep(10);
 					}
 					if (GetAsyncKeyState(54))
 					{
-						Sleep(100);
 						*variable = *variable + "^";
 						while (GetAsyncKeyState(54)) Sleep(10);
 					}
 					if (GetAsyncKeyState(55))
 					{
-						Sleep(100);
 						*variable = *variable + "&";
 						while (GetAsyncKeyState(55)) Sleep(10);
 					}
 					if (GetAsyncKeyState(56))
 					{
-						Sleep(100);
 						*variable = *variable + "*";
 						while (GetAsyncKeyState(56)) Sleep(10);
 					}
 					if (GetAsyncKeyState(57))
 					{
-						Sleep(100);
 						*variable = *variable + "(";
 						while (GetAsyncKeyState(57)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_PLUS))
 					{
-						Sleep(100);
 						*variable = *variable + "+";
 						while (GetAsyncKeyState(VK_OEM_PLUS)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_MINUS))
 					{
-						Sleep(100);
 						*variable = *variable + "_";
 						while (GetAsyncKeyState(VK_OEM_MINUS)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_COMMA))
 					{
-						Sleep(100);
 						*variable = *variable + "<";
 						while (GetAsyncKeyState(VK_OEM_COMMA)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_PERIOD))
 					{
-						Sleep(100);
 						*variable = *variable + ">";
 						while (GetAsyncKeyState(VK_OEM_PERIOD)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_2))
 					{
-						Sleep(100);
 						*variable = *variable + "?";
 						while (GetAsyncKeyState(VK_OEM_2)) Sleep(10);
 					}
@@ -805,7 +785,6 @@ namespace ConGui
 					{
 						if (GetAsyncKeyState(i))
 						{
-							Sleep(100);
 							*variable = *variable + (char)tolower(i);
 							while (GetAsyncKeyState(i)) Sleep(10);
 						}
@@ -814,66 +793,78 @@ namespace ConGui
 					{
 						if (GetAsyncKeyState(i))
 						{
-							Sleep(100);
 							*variable = *variable + (char)tolower(i);
 							while (GetAsyncKeyState(i)) Sleep(10);
 						}
 					}
 					if (GetAsyncKeyState(VK_OEM_PLUS))
 					{
-						Sleep(100);
 						*variable = *variable + "+";
 						while (GetAsyncKeyState(VK_OEM_PLUS)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_MINUS))
 					{
-						Sleep(100);
 						*variable = *variable + "-";
 						while (GetAsyncKeyState(VK_OEM_MINUS)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_COMMA))
 					{
-						Sleep(100);
 						*variable = *variable + ",";
 						while (GetAsyncKeyState(VK_OEM_COMMA)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_PERIOD))
 					{
-						Sleep(100);
 						*variable = *variable + ".";
 						while (GetAsyncKeyState(VK_OEM_PERIOD)) Sleep(10);
 					}
 					if (GetAsyncKeyState(VK_OEM_2))
 					{
-						Sleep(100);
 						*variable = *variable + "/";
 						while (GetAsyncKeyState(VK_OEM_2)) Sleep(10);
 					}
 				}
 				if (GetAsyncKeyState(VK_SPACE))
 				{
-					Sleep(100);
 					*variable = *variable + " ";
 					while (GetAsyncKeyState(VK_SPACE)) Sleep(10);
 				}
 			}
 			if (GetAsyncKeyState(VK_BACK))
 			{
-				Sleep(75);
+				Sleep(85);
 				*variable = variable->substr(0, variable->size() - 1);
 			}
 			Text(x, y, text, Style::InputText);
-			if (dwTick + 500 < GetTickCount())dwTick = GetTickCount();
-			if (dwTick + 250 < GetTickCount()) Text(x, y + 1, (*variable + "_").c_str(), Style::InputTextText);
-			else Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
+			if (encrypted)
+			{
+				if (dwTick + 500 < GetTickCount())dwTick = GetTickCount();
+				std::string pass = "";
+				pass.resize(variable->size(), '*');
+				if (dwTick + 250 < GetTickCount()) Text(x, y + 1, (pass + "_").c_str(), Style::InputTextText);
+				else Text(x, y + 1, (pass).c_str(), Style::InputTextText);
+			}
+			else
+			{
+				if (dwTick + 500 < GetTickCount())dwTick = GetTickCount();
+				if (dwTick + 250 < GetTickCount()) Text(x, y + 1, (*variable + "_").c_str(), Style::InputTextText);
+				else Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
+			}
 		}
 		else
 		{
 			Text(x, y, text, Style::InputText);
-			Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
+			if (encrypted)
+			{
+				if (dwTick + 500 < GetTickCount())dwTick = GetTickCount();
+				std::string pass = "";
+				pass.resize(variable->size(), '*');
+				if (dwTick + 250 < GetTickCount()) Text(x, y + 1, (pass + "_").c_str(), Style::InputTextText);
+				else Text(x, y + 1, (pass).c_str(), Style::InputTextText);
+			}
+			else Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
 		}
 
-		if (InvisibleButton(x, y, x + (*variable).size(), y + 2))
+		if (InvisibleButton(x, y, x + strlen(text), y + 2))
 		{
 			LastX = x;
 			LastY = y;
