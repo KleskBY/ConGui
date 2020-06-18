@@ -6,9 +6,9 @@
 using namespace std;
 
 /*
-	ConGui v0.2
+	ConGui v0.3
 	Author: KleskBY
-	Date: 6/12/2020
+	Date: 6/18/2020
 	Release date: 12/12/2019
 */
 
@@ -690,7 +690,7 @@ namespace ConGui
 			{
 				if (GetAsyncKeyState(VK_SHIFT))
 				{
-					for (int i = 65; i < 90; i++)
+					for (int i = 65; i < 91; i++)
 					{
 						if (GetAsyncKeyState(i))
 						{
@@ -781,7 +781,7 @@ namespace ConGui
 				}
 				else
 				{
-					for (int i = 48; i < 57; i++)
+					for (int i = 48; i < 58; i++)
 					{
 						if (GetAsyncKeyState(i))
 						{
@@ -789,7 +789,7 @@ namespace ConGui
 							while (GetAsyncKeyState(i)) Sleep(10);
 						}
 					}
-					for (int i = 65; i < 90; i++)
+					for (int i = 65; i < 91; i++)
 					{
 						if (GetAsyncKeyState(i))
 						{
@@ -855,16 +855,14 @@ namespace ConGui
 			Text(x, y, text, Style::InputText);
 			if (encrypted)
 			{
-				if (dwTick + 500 < GetTickCount())dwTick = GetTickCount();
 				std::string pass = "";
 				pass.resize(variable->size(), '*');
-				if (dwTick + 250 < GetTickCount()) Text(x, y + 1, (pass + "_").c_str(), Style::InputTextText);
-				else Text(x, y + 1, (pass).c_str(), Style::InputTextText);
+				Text(x, y + 1, (pass).c_str(), Style::InputTextText);
 			}
 			else Text(x, y + 1, (*variable).c_str(), Style::InputTextText);
 		}
 
-		if (InvisibleButton(x, y, x + strlen(text), y + 2))
+		if (InvisibleButton(x, y, x + w, y + 2))
 		{
 			LastX = x;
 			LastY = y;
