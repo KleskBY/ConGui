@@ -1,4 +1,5 @@
 # ConGui - Windows Console UI library
+<b>Starting with Windows 11, Windows uses "Windows Terminal" instead of "Windows Con Host" to run command line applications. If you have Windows 11, you need to open settings and set the default terminal app to "Windows Console Host".</b>
 A Fast, signle header, low level, direct buffer access, Windows Terminal UI library with mouse cursor support and other features.
 <br>
 <b>ConGui</b> is an open source graphical user interface library for C++ that work inside Windows CMD. Similar to Turbo Vision. All GUI elements are clickable with regular mouse pointer. This library uses direct buffer access (WriteConsoleOutputCharacterW) to print symbols in console, so it is not delayed like regular console output.
